@@ -1,4 +1,7 @@
-﻿$SnowUsername = "admin"
+# The goal for this script is to retrieve an incident ticket from servicenow instance 
+
+
+$SnowUsername = "admin"
 $SnowPlainPassword = "Unacceptable123$"
 
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $SnowUsername, $SnowPlainPassword)))
