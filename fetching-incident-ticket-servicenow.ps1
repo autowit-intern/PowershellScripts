@@ -15,7 +15,8 @@ $headers.Add('Content-Type','application/xml')
 
 
 # Specify the ticketnumber you wish to retrieve and set the base URL of your instance
-$TicketNumber = "INC0010111"
+# UPDATED to receive user input for the ticket number
+$TicketNumber = Read-Host -Prompt 'Input Incident Number'
 $SnowBaseURL = "https://dev101455.service-now.com/"
 $uri = $SnowBaseURL + "api/now/table/incident?number=$TicketNumber"
 
