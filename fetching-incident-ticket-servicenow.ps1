@@ -1,8 +1,8 @@
 # The goal for this script is to retrieve an incident ticket from servicenow instance 
 
 # Set your username and password for servicenow (must be admin)
-$SnowUsername = "admin"
-$SnowPlainPassword = "Unacceptable123$"
+$SnowUsername = ********
+$SnowPlainPassword = ********
 
 # Converts your user and pass to base64 plaintext
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $SnowUsername, $SnowPlainPassword)))

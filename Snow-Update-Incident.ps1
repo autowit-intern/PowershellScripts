@@ -10,7 +10,9 @@ $headers.Add('Authorization',('Basic {0}' -f $base64AuthInfo))
 $headers.Add('Accept','application/xml')
 $headers.Add('Content-Type','application/xml')
 
-$Sys_Id = "01746dba2f6910105822d7492799b607"
+# Updated to receive user input for the sys_id
+
+$Sys_Id = Read-Host -Prompt 'Enter Your Sys_Id'
 $SnowBaseURL = "https://dev101455.service-now.com/"
 $uri = $SnowBaseURL + "api/now/v1/table/incident/$sys_Id"
 
@@ -19,7 +21,7 @@ $uri = $SnowBaseURL + "api/now/v1/table/incident/$sys_Id"
 
  # Changing the incident state
  $Body = @{ 
-           incident_state="3"
+           incident_state="1"
 
       }
 
