@@ -103,4 +103,4 @@ function SnowUpdateIncident {
             }
 
 
-            Export-ModuleMember -Function 'SnowUpdateIncident' 'SnowIncidentCreation' 'SnowFetchIncident'
+            Export-ModuleMember -Function 'SnowUpdateIncident', 'SnowIncidentCreation', 'SnowFetchIncident'
