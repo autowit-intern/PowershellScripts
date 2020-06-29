@@ -1,8 +1,9 @@
+function Snow-Fetch-Incident {
 # The goal for this script is to retrieve an incident ticket from servicenow instance 
 
 # Set your username and password for servicenow (must be admin)
-$SnowUsername = ********
-$SnowPlainPassword = ********
+$SnowUsername = 'admin'
+$SnowPlainPassword = 'Unacceptable123$'
 
 # Converts your user and pass to base64 plaintext
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $SnowUsername, $SnowPlainPassword)))
@@ -28,3 +29,8 @@ $uri = $SnowBaseURL + "api/now/table/incident?number=$TicketNumber"
  [xml]$response = Invoke-WebRequest -Headers $headers -Method $method -Uri $uri -UseBasicParsing
 
  $response.ChildNodes.result
+
+
+}
+
+Snow-Fetch-Incident
