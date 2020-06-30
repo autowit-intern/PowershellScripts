@@ -14,19 +14,25 @@ function SnowUpdateIncident {
     $headers.Add('Accept','application/json')
     $headers.Add('Content-Type','application/json')
     
-    # Updated to receive user input for the sys_id
-    
-    $Sys_Id = Read-Host -Prompt 'Enter Your Sys_Id'
+    # Updated to receive user input for the ticketnumber
+
+    # $TicketNumber = Read-Host "Enter a Ticket Number (INCXXXXXXX)" 
+             
+    # The next line will retrieve the sys_id using the ticketnumber input from the user
+    $Sys_Id = "01746dba2f6910105822d7492799b607"
     $SnowBaseURL = "https://dev101455.service-now.com/"
-    $uri = $SnowBaseURL + "api/now/v1/table/incident/$sys_Id"
+    $uri = $SnowBaseURL + "api/now/v1/table/incident/$Sys_Id"
     
      # Specify HTTP method
      $method = "patch"
     
     # Specify request body
-    $body = "{`"short_description`":`"hello hello hello`",`"incident_state`":`"1`"}"
     
-    # convert to json format
+  
+  [validateset("Closed","New","InProgress","OnHold","Canceled")]  $Body = Read-Host -Prompt `"incident_state`":`"$_.`"
+    
+    
+        # convert to json format
     $BodyJson = $Body | convertto-json
     
     
@@ -36,6 +42,8 @@ function SnowUpdateIncident {
      $response.ChildNodes.result
     
     }
+
+    SnowUpdateIncident
 
             function SnowFetchIncident {
             # The goal for this script is to retrieve an incident ticket from servicenow instance 
@@ -55,16 +63,17 @@ function SnowUpdateIncident {
             
             
             # Specify the ticketnumber you wish to retrieve and set the base URL of your instance
-            # Added a validation set that only accept 'INC' and 7 numbers after. 
+            # Added a validation set that only accepts 'INC' and 7 numbers after. 
             # It will keep asking until you input the proper format for Ticketnumbers i.e (INC0010002)
 
-
-            do
+             do
             {
                 try {
-                [ValidatePattern('^INC\d{1,7}$')]$TicketNumber = Read-Host "Enter a Ticket Number (INCXXXXXXX)" 
+                [ValidatePattern('^INC\d{7}$')]$TicketNumber = Read-Host "Enter a Ticket Number (INCXXXXXXX)" 
                 } catch {}
             } until ($?)
+            
+            # uri of the incident oyu are requesting
             $SnowBaseURL = "https://dev101455.service-now.com/"
             $uri = $SnowBaseURL + "api/now/table/incident?number=$TicketNumber"
             
@@ -80,7 +89,7 @@ function SnowUpdateIncident {
             
             }
 
-            SnowFetchIncident
+          
 
 
             Export-ModuleMember -Function 'SnowUpdateIncident', 'SnowFetchIncident'
