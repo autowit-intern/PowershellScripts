@@ -55,8 +55,16 @@ function SnowUpdateIncident {
             
             
             # Specify the ticketnumber you wish to retrieve and set the base URL of your instance
-            # UPDATED to receive user input for the ticket number
-            $TicketNumber = Read-Host -Prompt 'Input Incident Number'
+            # Added a validation set that only accept 'INC' and 7 numbers after. 
+            # It will keep asking until you input the proper format for Ticketnumbers i.e (INC0010002)
+
+
+            do
+            {
+                try {
+                [ValidatePattern('^INC\d{1,7}$')]$TicketNumber = Read-Host "Enter a Ticket Number (INCXXXXXXX)" 
+                } catch {}
+            } until ($?)
             $SnowBaseURL = "https://dev101455.service-now.com/"
             $uri = $SnowBaseURL + "api/now/table/incident?number=$TicketNumber"
             
@@ -71,6 +79,8 @@ function SnowUpdateIncident {
             
             
             }
+
+            SnowFetchIncident
 
 
             Export-ModuleMember -Function 'SnowUpdateIncident', 'SnowFetchIncident'
