@@ -13,7 +13,8 @@ $Global:SnowPlainPassword =  [Runtime.InteropServices.Marshal]::PtrToStringAuto(
 
 #Authentication information
 $Global:base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Global:SnowUsername, $Global:SnowPlainPassword)))
-
+# ServiceNow Instance base URL
+$Global:SnowBaseURL = "https://dev101455.service-now.com/"
 #Setting the Headers
 $Global:headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $Global:headers.Add('Authorization',('Basic {0}' -f $Global:base64AuthInfo))
