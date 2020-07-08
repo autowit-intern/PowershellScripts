@@ -51,6 +51,7 @@ else
 {
      $ReturnCode = 2
     write-host "Target Server is Not Running. Returncode: $ReturnCode"
+    exit
 }
   
 
@@ -67,6 +68,7 @@ $Name = Read-host "Enter database name"
  if (Get-MySqlDatabase -name $Name) {
                                      $ReturnCode = 2
                                      Write-Host "Database with same name already exists. Returncode: $ReturnCode";
+                                     exit
  }
  else 
  {
@@ -103,7 +105,8 @@ if ($NewDB -eq $DBName)
 else
 {
    $ReturnCode = 2
-   write-host "Failure; Error occured could not create database. Returncode: $ReturnCode" 
+   write-host "Failure; Error occured could not create database. Returncode: $ReturnCode"
+   exit
 }
 
 
@@ -129,6 +132,7 @@ if (Send-Confirmation-Email -eq $true)
 {
     $returncode = 2
     write-host "Something went wrong. Email was not sent. Returncode: $ReturnCode"
+    exit
 }
 else
 {
