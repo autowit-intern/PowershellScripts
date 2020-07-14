@@ -1,4 +1,4 @@
-﻿# RESIZE CPU GOOGLE CLOUD PLATFORM
+# RESIZE CPU GOOGLE CLOUD PLATFORM
 
 # STEPS/REQUIREMENTS
 <# STEP 1  Login to Google cloud platform API
@@ -23,34 +23,26 @@ $ErrorActionPreference = 'silentlycontinue'
 ## variables needed
 
 $InstanceName = Read-host "Enter Instance Name" 
-
-
-## step 1 ##
-## variables needed ##
 $ProjectName = read-host "enter projectname"
 $Zone = read-host "enter the zone"
 $Instance = read-host "enter the instance name"
+
+## step 1 ##
 # Login
-function gcloud-Login {
-                        gcloud compute  --project $ProjectName ssh --zone $Zone --ssh-key-expire-after=1m "$Instance" 
-                        }
-
-gcloud compute --project $ProjectName instances start --zone $Zone "$Instance"
-
-
+$CheckCreds = gcloud auth list --format=list
+$Login = $CheckCreds | Select-String -SimpleMatch 'active'
 # Verification of login
-
-if (gcloud-login -eq success)
+if ($Login -match 'active')
 {
-    echo "success" 
+    $ReturnCode = 0
+    Write-Host "Gcloud account is Active. Returncode: $ReturnCode"
 }
 else
 {
-    echo "fail"
+    $ReturnCode = 2
+    Write-Host "Gcloud account is Not Active. Returncode: $ReturnCode"
     exit
 }
-
-
 
 
 ## step 2 ##
